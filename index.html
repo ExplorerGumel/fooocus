@@ -1,5 +1,4 @@
-</body>
-</html>
+    
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -8,24 +7,31 @@
     <title>Embedded Hugging Face Space</title>
 </head>
 <body>
-    <iframe id="embeddedFrame"
-        src="https://sd-online-dev2.hf.space"
-        frameborder="0"
-        width="850"
-        height="450"
-    ></iframe>
-
     <script>
-        var embeddedFrame = document.getElementById('embeddedFrame');
+        // Define the authentication credentials
+        var username = 'idea';
+        var password = 'password';
+        var token = btoa(username + ':' + password);
 
-        // Set the authentication headers
-        embeddedFrame.onload = function() {
-            var username = 'idea';
-            var password = 'password';
-            var token = btoa(username + ':' + password);
+        // Add event listener for when the authentication message is received
+        window.addEventListener('message', function(event) {
+            if (event.data && event.data.type === 'authorization') {
+                var embeddedFrame = document.getElementById('embeddedFrame');
+                embeddedFrame.src = 'https://sd-online-dev2.hf.space';
+            }
+        });
+
+        // Send authentication token to the embedded frame
+        function sendAuth() {
+            var embeddedFrame = document.getElementById('embeddedFrame');
             embeddedFrame.contentWindow.postMessage({ type: 'authorization', token: token }, '*');
-        };
+        }
+
+        // Load the embedded frame after the page has loaded
+        window.onload = sendAuth;
     </script>
+
+    <iframe id="embeddedFrame" frameborder="0" width="850" height="450"></iframe>
 </body>
 </html>
 
