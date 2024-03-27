@@ -1,37 +1,19 @@
-    
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Embedded Hugging Face Space</title>
+    <title>Authenticated Hugging Face Space</title>
 </head>
 <body>
     <script>
-        // Define the authentication credentials
-        var username = 'idea';
-        var password = 'password';
-        var token = btoa(username + ':' + password);
-
-        // Add event listener for when the authentication message is received
-        window.addEventListener('message', function(event) {
-            if (event.data && event.data.type === 'authorization') {
-                var embeddedFrame = document.getElementById('embeddedFrame');
-                embeddedFrame.src = 'https://sd-online-dev2.hf.space';
-            }
-        });
-
-        // Send authentication token to the embedded frame
-        function sendAuth() {
-            var embeddedFrame = document.getElementById('embeddedFrame');
-            embeddedFrame.contentWindow.postMessage({ type: 'authorization', token: token }, '*');
+        var password = "your-password";
+        var userPrompt = prompt("Please enter the password:");
+        if (userPrompt !== password) {
+            alert("Incorrect password. Access denied.");
+            window.location.href = "https://goggle.com"; // Redirect to GitHub homepage
         }
-
-        // Load the embedded frame after the page has loaded
-        window.onload = sendAuth;
     </script>
-
-    <iframe id="embeddedFrame" frameborder="0" width="850" height="450"></iframe>
+    <iframe src="https://huggingface.co/spaces/your-username/space-name?embed=true" width="100%" height="800px" frameborder="0"></iframe>
 </body>
 </html>
-
