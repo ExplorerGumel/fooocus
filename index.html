@@ -1,18 +1,31 @@
+</body>
+</html>
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Fooocus Application</title>
+    <title>Embedded Hugging Face Space</title>
 </head>
 <body>
-    <script
-	src="https://sd-online-dev2.hf.space"
-	frameborder="0"
-	width="850"
-	height="450"
-></script>
+    <iframe id="embeddedFrame"
+        src="https://sd-online-dev2.hf.space"
+        frameborder="0"
+        width="850"
+        height="450"
+    ></iframe>
 
+    <script>
+        var embeddedFrame = document.getElementById('embeddedFrame');
+
+        // Set the authentication headers
+        embeddedFrame.onload = function() {
+            var username = 'idea';
+            var password = 'password';
+            var token = btoa(username + ':' + password);
+            embeddedFrame.contentWindow.postMessage({ type: 'authorization', token: token }, '*');
+        };
+    </script>
 </body>
 </html>
 
